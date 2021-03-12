@@ -2,7 +2,7 @@ let activeplayer = 'X';
 let selectedsquare = [];
 
 function placeXOrO(squareNumber) {
-    if (!selectedsquares.some(element => element.includes(squareNumber))) {
+    if (!selectedsquare.some(element => element.includes(squareNumber))) {
         let selected = document.getElementById(squareNumber);
         if (activeplayer === 'X') {
             selected.style.background = 'url("images/x.png")';
@@ -82,7 +82,7 @@ function Audio(audioURL) {
 function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
     const c = canvas.getElementById('win-lines')
     const c = canvas.getContext('2d');
-    let x1 = coordX1,
+     let x1 = coordX1,
         y1 = coordY1,
         x2 = coordX2,
         y2 = coordY2,
