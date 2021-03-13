@@ -1,23 +1,23 @@
-let activeplayer = 'X';
-let selectedsquare = [];
+let activePlayer = 'X';
+let selectedSquare = [];
 
 function placeXOrO(squareNumber) {
-    if (!selectedsquare.some(element => element.includes(squareNumber))) {
+    if (!selectedSquare.some(element => element.includes(squareNumber))) {
         let select = document.getElementById(squareNumber);
-        if (activeplayer === 'X') {
-            select.style.background = 'url("media/x.png")';
+        if (activePlayer === 'X') {
+            select.style.backgroundImage = 'url("media/x.png")';
         } else {
-            select.style.background = 'url("media/o.png")';
+            select.style.backgroundImage = 'url("media/o.png")';
         }
-        selectedsquare.push(squareNumber + activeplayer);
-        checkWincondition();
-        if (activeplayer === 'X') {
-            activeplayer = 'O';
+        selectedSquare.push(squareNumber + activePlayer);
+        checkWinCondition();
+        if (activePlayer === 'X') {
+            activePlayer = 'O';
         } else {
-            activeplayer = 'X';
+            activePlayer = 'X';
         }
         audio('./media/place.mp3');
-        if(activeplayer === 'O'){
+        if(activePlayer === 'O'){
             disableClick();
             setTimeout(function (){ computersTurn(); }, 1000)
         }
@@ -29,15 +29,15 @@ function placeXOrO(squareNumber) {
         let pickASquare;
         while(!success){
             pickAsquare = String(Math.floor(Math.random() *9));
-            if (placeXOrO(pickAsquare)){
-                placeXOrO(pickAsquare);
+            if (placeXOrO(pickASquare)){
+                placeXOrO(pickASquare);
                 success = true;
             };
         }
     }
 }
 
-function checkWincondition() {
+function checkWinCondition() {
     if     (arrayIncludes('0X','1X','2X')) {drawWineLine(50,100,558,100)}
     else if(arrayIncludes('3X','4X','5X')) {drawWineLine(50,304,558,304)}   
     else if(arrayIncludes('6X','7X','8X')) {drawWineLine(50,508,558,508)}
@@ -54,15 +54,15 @@ function checkWincondition() {
     else if(arrayIncludes('2O','5O','8O')) {drawWineLine(508,50,508,558)}
     else if(arrayIncludes('6O','4O','2O')) {drawWineLine(100,508,510,90)}
     else if(arrayIncludes('0O','4O','8O')) {drawWineLine(100,100,520,520)}
-    else if (selectedsquare.length >= 9) {
+    else if (selectedSquare.length >= 9) {
         audio('./media/tie.mp3');
         setTimeout(function () { resetGame(); }, 1000);
     }
 }
 function arrayIncludes(squareA, squareB, squareC) {
-    const a = selectedsquare.includes(squareA)
-    const b = selectedsquare.includes(squareB)
-    const c = selectedsquare.includes(squareC)
+    const a = selectedSquare.includes(squareA)
+    const b = selectedSquare.includes(squareB)
+    const c = selectedSquare.includes(squareC)
     if (a === true && b === true && c === true) { return true }
     } 
 
@@ -71,7 +71,7 @@ function resetGame() {
     for (let i = 0; i < 9; i++) {
         let square = document.getElementById(String(i))
     }
-    selectedsquare = [];
+    selectedSquare = [];
 }
 
 function audio(audioURL) {
@@ -126,5 +126,6 @@ function resetGame() {
         let square = document.getElementById(String(i))
         square.style.backgroundImage = ''
     }
-    selectedsquare = [];
+    selectedSquare = [];
 }
+
