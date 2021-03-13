@@ -3,11 +3,11 @@ let selectedsquare = [];
 
 function placeXOrO(squareNumber) {
     if (!selectedsquare.some(element => element.includes(squareNumber))) {
-        let selected = document.getElementById(squareNumber);
+        let select = document.getElementById(squareNumber);
         if (activeplayer === 'X') {
-            selected.style.background = 'url("images/x.png")';
+            select.style.background = 'url("media/x.png")';
         } else{
-            select.style.background = 'url("images/o.png")';
+            select.style.background = 'url("media/o.png")';
         }
         selectedsquare.push(squareNumber + activeplayer);
         checkWincondition();
@@ -16,7 +16,7 @@ function placeXOrO(squareNumber) {
         } else {
             activeplayer = 'x';
         }
-        Audio('./media/place.mp3');
+        audio('./media/place.mp3');
         if(activeplayer === 'o'){
             disableClick();
             setTimeout(function (){ computersTurn(); }, 1000)
@@ -28,9 +28,9 @@ function placeXOrO(squareNumber) {
         let success = false;
         let pickSquare;
         while(!success){
-            pickAsquare = String(math.floor(Math.random() *9));
+            pickAsquare = String(Math.floor(Math.random() *9));
             if (placeXOrO(pickAsquare)){
-                placeXOrO(ppickAsquare);
+                placeXOrO(pickAsquare);
                 success = true;
             };
         }
@@ -74,20 +74,20 @@ function resetGame() {
     selectedsquare = [];
 }
 
-function Audio(audioURL) {
+function audio(audioURL) {
     let audio = new Audio(audioURL);
     audio.play();
 }
 
 function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
-    const c = canvas.getElementById('win-lines')
+    const canvas=document.getElementById('win-lines')
     const c = canvas.getContext('2d');
      let x1 = coordX1,
         y1 = coordY1,
         x2 = coordX2,
         y2 = coordY2,
         x = x1,
-        y = y1,
+        y = y1;
 
         function animateLineDrawing() {
             const animateLoop = requestAnimationFrame(animateLineDrawing);
@@ -120,4 +120,11 @@ function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
 function disableClick() {
     body.style.pointEvent = 'none';
     setTimeout(function() {body.style.pointEvent = 'auto';}, 1000)
+}
+function resetGame() {
+    for (let i = 0; i < 9; i++) {
+        let square = document.getElementById(string(i))
+        square.style.backgroundImage = ''
+    }
+    selectedsquare = [];
 }
