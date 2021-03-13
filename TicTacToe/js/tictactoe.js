@@ -6,18 +6,18 @@ function placeXOrO(squareNumber) {
         let select = document.getElementById(squareNumber);
         if (activeplayer === 'X') {
             select.style.background = 'url("media/x.png")';
-        } else{
+        } else {
             select.style.background = 'url("media/o.png")';
         }
         selectedsquare.push(squareNumber + activeplayer);
         checkWincondition();
-        if (activeplayer === 'x') {
-            activeplayer = 'o';
+        if (activeplayer === 'X') {
+            activeplayer = 'O';
         } else {
-            activeplayer = 'x';
+            activeplayer = 'X';
         }
         audio('./media/place.mp3');
-        if(activeplayer === 'o'){
+        if(activeplayer === 'O'){
             disableClick();
             setTimeout(function (){ computersTurn(); }, 1000)
         }
@@ -26,7 +26,7 @@ function placeXOrO(squareNumber) {
 
     function computersTurn() {
         let success = false;
-        let pickSquare;
+        let pickASquare;
         while(!success){
             pickAsquare = String(Math.floor(Math.random() *9));
             if (placeXOrO(pickAsquare)){
@@ -38,22 +38,22 @@ function placeXOrO(squareNumber) {
 }
 
 function checkWincondition() {
-    if     (arrayIncludes('0x','1x','2x')) {drawWineLine(50,100,100) }
-    else if(arrayIncludes('3x','4x','5x')) {drawWineLine(50,304,558,304)}   
-    else if(arrayIncludes('6x','7x','8x')) {drawWineLine(50,508,558,508)}
-    else if(arrayIncludes('0x','3x','6x')) {drawWineLine(100,50,100,558)}
-    else if(arrayIncludes('1x','4x','7x')) {drawWineLine(304.50,304,558)}
-    else if(arrayIncludes('2x','5x','8x')) {drawWineLine(508,50,508,558)}
-    else if(arrayIncludes('6x','4x','2x')) {drawWineLine(100,508,510,90)}
-    else if(arrayIncludes('0x','4x','8x')) {drawWineLine(100,100,520,520)}
-    else if(arrayIncludes('0o','1o','2o')) {drawWineLine(50,100,558,100)}
-    else if(arrayIncludes('3o','4o','5o')) {drawWineLine(50,304,558,304)}
-    else if(arrayIncludes('6o','7o','8o')) {drawWineLine(50,508,558,508)}
-    else if(arrayIncludes('0o','3o','60')) {drawWineLine(100,50,100,558)}
-    else if(arrayIncludes('1o','4o','7o')) {drawWineLine(304,50,304,558)}
-    else if(arrayIncludes('2o','5o','8o')) {drawWineLine(508,50,508,558)}
-    else if(arrayIncludes('6o','4o','2o')) {drawWineLine(100,508,510,90)}
-    else if(arrayIncludes('0o','4o','8o')) {drawWineLine(100,100,520,520)}
+    if     (arrayIncludes('0X','1X','2X')) {drawWineLine(50,100,558,100)}
+    else if(arrayIncludes('3X','4X','5X')) {drawWineLine(50,304,558,304)}   
+    else if(arrayIncludes('6X','7X','8X')) {drawWineLine(50,508,558,508)}
+    else if(arrayIncludes('0X','3X','6X')) {drawWineLine(100,50,100,558)}
+    else if(arrayIncludes('1X','4X','7X')) {drawWineLine(304.50,304,558)}
+    else if(arrayIncludes('2X','5X','8X')) {drawWineLine(508,50,508,558)}
+    else if(arrayIncludes('6X','4X','2X')) {drawWineLine(100,508,510,90)}
+    else if(arrayIncludes('0X','4X','8X')) {drawWineLine(100,100,520,520)}
+    else if(arrayIncludes('0O','1O','2O')) {drawWineLine(50,100,558,100)}
+    else if(arrayIncludes('3O','4O','5O')) {drawWineLine(50,304,558,304)}
+    else if(arrayIncludes('6O','7O','8O')) {drawWineLine(50,508,558,508)}
+    else if(arrayIncludes('0O','3O','6O')) {drawWineLine(100,50,100,558)}
+    else if(arrayIncludes('1O','4O','7O')) {drawWineLine(304,50,304,558)}
+    else if(arrayIncludes('2O','5O','8O')) {drawWineLine(508,50,508,558)}
+    else if(arrayIncludes('6O','4O','2O')) {drawWineLine(100,508,510,90)}
+    else if(arrayIncludes('0O','4O','8O')) {drawWineLine(100,100,520,520)}
     else if (selectedsquare.length >= 9) {
         audio('./media/tie.mp3');
         setTimeout(function () { resetGame(); }, 1000);
@@ -69,7 +69,7 @@ function arrayIncludes(squareA, squareB, squareC) {
 
 function resetGame() {
     for (let i = 0; i < 9; i++) {
-        let square = document.getElementById(string(i))
+        let square = document.getElementById(String(i))
     }
     selectedsquare = [];
 }
@@ -80,7 +80,7 @@ function audio(audioURL) {
 }
 
 function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
-    const canvas=document.getElementById('win-lines')
+    const canvas = document.getElementById('win-lines')
     const c = canvas.getContext('2d');
      let x1 = coordX1,
         y1 = coordY1,
@@ -90,7 +90,7 @@ function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
         y = y1;
 
         function animateLineDrawing() {
-            const animateLoop = requestAnimationFrame(animateLineDrawing);
+            const animationLoop = requestAnimationFrame(animateLineDrawing);
             c.clearRect(0, 0, 608, 608)
             c.beginPath();
             c.moveTo(x1, y1)
@@ -101,14 +101,14 @@ function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
             if (x1 <= x2 && y1 <= y2) {
                if (x < y2) {x += 10;}
                if (y < y2) { y += 10;}
-               if (x >= x2 && y >= y2) {cancelAnimationFrame(animateLoop); }
+               if (x >= x2 && y >= y2) {cancelAnimationFrame(animationLoop); }
             }
         }
 
         function clear() {
-            const animateLoop = requestAnimationFrame(clear);
+            const animationLoop = requestAnimationFrame(clear);
             c.clearRect(0, 0, 608, 608);
-            cancelAnimationFrame(animateLoop);
+            cancelAnimationFrame(animationLoop);
             
         }
         disableClick();
