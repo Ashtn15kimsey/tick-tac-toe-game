@@ -55,7 +55,7 @@ function checkWincondition() {
     else if(arrayIncludes('6o','4o','2o')) {drawWineLine(100,508,510,90)}
     else if(arrayIncludes('0o','4o','8o')) {drawWineLine(100,100,520,520)}
     else if (selectedsquare.length >= 9) {
-        Audio('./media/tie.mp3');
+        audio('./media/tie.mp3');
         setTimeout(function () { resetGame(); }, 1000);
     }
 }
@@ -91,7 +91,7 @@ function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
 
         function animateLineDrawing() {
             const animateLoop = requestAnimationFrame(animateLineDrawing);
-            c.clearReact(0, 0, 608, 608)
+            c.clearRect(0, 0, 608, 608)
             c.beginPath();
             c.moveTo(x1, y1)
             c.lineTo(x, y)
@@ -107,7 +107,7 @@ function drawWineLine(coordX1,coordY1,coordX2,coordY2) {
 
         function clear() {
             const animateLoop = requestAnimationFrame(clear);
-            c.clearReact(0, 0, 608, 608);
+            c.clearRect(0, 0, 608, 608);
             cancelAnimationFrame(animateLoop);
             
         }
@@ -123,7 +123,7 @@ function disableClick() {
 }
 function resetGame() {
     for (let i = 0; i < 9; i++) {
-        let square = document.getElementById(string(i))
+        let square = document.getElementById(String(i))
         square.style.backgroundImage = ''
     }
     selectedsquare = [];
